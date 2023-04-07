@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.rumplestilzken.network_conf.databinding.ActivityMainBinding;
+import com.rumplestilzken.network_conf.databinding.MainMenuBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,28 +22,40 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+//    private ActivityMainBinding binding;
+    private MainMenuBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = MainMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+    binding.shellButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            binding.shellTextView.setText("This is a test");
+        }
+    });
 
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    binding.uiButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            binding.uiTextView.setText("This is a test");
+        }
+    });
+    //
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//
+//        binding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     @Override
@@ -59,10 +72,11 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
