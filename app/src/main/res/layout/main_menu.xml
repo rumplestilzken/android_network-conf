@@ -23,7 +23,9 @@
             android:id="@+id/uiTextView"
             android:layout_width="match_parent"
             android:layout_height="188dp"
-            android:editable="false" />
+            android:editable="false"
+            android:paddingLeft="30px"
+            android:scrollbars="horizontal|vertical" />
 
         <Button
             android:id="@+id/shellButton"
@@ -35,6 +37,8 @@
             android:id="@+id/shellTextView"
             android:layout_width="match_parent"
             android:layout_height="185dp"
-            android:editable="false" />
+            android:editable="false"
+            android:paddingLeft="30px"
+            android:scrollbars="horizontal|vertical" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

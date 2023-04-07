@@ -2,10 +2,9 @@ package com.rumplestilzken.network_conf;
 
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -13,7 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.rumplestilzken.network_conf.databinding.ActivityMainBinding;
+import com.rumplestilzken.network.ShellNetworkProcessor;
+import com.rumplestilzken.network.UINetworkProcessor;
 import com.rumplestilzken.network_conf.databinding.MainMenuBinding;
 
 import android.view.Menu;
@@ -21,8 +21,12 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    static {
+        System.loadLibrary("network-conf");
+    }
+
     private AppBarConfiguration appBarConfiguration;
-//    private ActivityMainBinding binding;
+
     private MainMenuBinding binding;
 
     @Override
@@ -31,19 +35,23 @@ public class MainActivity extends AppCompatActivity {
 
         binding = MainMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-    binding.shellButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            binding.shellTextView.setText("This is a test");
-        }
-    });
 
-    binding.uiButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            binding.uiTextView.setText("This is a test");
-        }
-    });
+        binding.shellTextView.setMovementMethod(new ScrollingMovementMethod());
+        binding.uiTextView.setMovementMethod(new ScrollingMovementMethod());
+
+        binding.shellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.shellTextView.setText(new ShellNetworkProcessor().getNetworkOutput());
+            }
+        });
+
+        binding.uiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.uiTextView.setText(new UINetworkProcessor().getNetworkOutput());
+            }
+        });
     //
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 //        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
