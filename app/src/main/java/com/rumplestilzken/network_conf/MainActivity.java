@@ -1,5 +1,6 @@
 package com.rumplestilzken.network_conf;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import com.rumplestilzken.network_conf.databinding.MainMenuBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     static {
         System.loadLibrary("network-conf");
@@ -39,17 +40,21 @@ public class MainActivity extends AppCompatActivity {
         binding.shellTextView.setMovementMethod(new ScrollingMovementMethod());
         binding.uiTextView.setMovementMethod(new ScrollingMovementMethod());
 
+        ShellNetworkProcessor snp = new ShellNetworkProcessor(this.getApplicationContext());
+        UINetworkProcessor uinp = new UINetworkProcessor(this.getApplicationContext());
+
+
         binding.shellButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.shellTextView.setText(new ShellNetworkProcessor().getNetworkOutput());
+                binding.shellTextView.setText(snp.getNetworkOutput());
             }
         });
 
         binding.uiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.uiTextView.setText(new UINetworkProcessor().getNetworkOutput());
+                binding.uiTextView.setText(uinp.getNetworkOutput());
             }
         });
     //
@@ -87,12 +92,5 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 }

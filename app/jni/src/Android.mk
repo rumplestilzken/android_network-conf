@@ -11,7 +11,7 @@ LOCAL_MODULE := network-conf
 # 					$(LOCAL_PATH)/$(PROTO_BUFFER_PATH)/
 
 # Add your application source files here...
-LOCAL_SRC_FILES := Test.cpp
+LOCAL_SRC_FILES := Network-Conf.cpp
 
 #LOCAL_STATIC_LIBRARIES := beast_hacker #android
 
